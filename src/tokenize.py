@@ -72,7 +72,7 @@ def string_to_tokens(expr: str) -> list[str | int | float]:
             index += 1
 
         else:
-            raise ExpresionException("Неизвестный символ")
+            raise ExpresionException(f"Неизвестный символ ({expr[index]})")
 
     return tokenized_expr
 
