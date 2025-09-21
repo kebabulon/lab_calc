@@ -16,7 +16,7 @@ def is_operator(tok: str | int | float) -> bool:
     :param expr: Токен
     :return: Возвращает bool
     """
-    return tok in ['+', '-', '*', '/', '//', '%', '**']
+    return tok in ['+', '-', '*', '/', '//', '%', '**', 'u+', 'u-']
 
 
 def string_to_tokens(expr: str) -> list[str | int | float]:
