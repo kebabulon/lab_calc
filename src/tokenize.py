@@ -1,4 +1,5 @@
 from src.calculation_exceptions import ExpresionException
+from src.constants import OPERATORS
 
 
 def is_number(tok: str | int | float) -> bool:
@@ -16,7 +17,7 @@ def is_operator(tok: str | int | float) -> bool:
     :param expr: Токен
     :return: Возвращает bool
     """
-    return tok in ['+', '-', '*', '/', '//', '%', '**', 'u+', 'u-']
+    return tok in OPERATORS
 
 
 def string_to_tokens(expr: str) -> list[str | int | float]:
