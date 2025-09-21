@@ -5,16 +5,16 @@ from src.constants import OPERATORS
 def is_number(tok: str | int | float) -> bool:
     """
     Проверяет если токен является числом
-    :param expr: Токен
+    :param tok: Токен
     :return: Возвращает bool
     """
-    return (tok is int) or (tok is float)
+    return (type(tok) is int) or (type(tok) is float)
 
 
 def is_operator(tok: str | int | float) -> bool:
     """
     Проверяет если токен является оператором
-    :param expr: Токен
+    :param tok: Токен
     :return: Возвращает bool
     """
     return tok in OPERATORS
