@@ -1,5 +1,6 @@
-from src.power import power_function
-from src.constants import SAMPLE_CONSTANT
+from src.calculate import calculate
+from src.calculation_exceptions import CalculationException
+from src.calculation_exceptions import ExpresionException
 
 
 def main() -> None:
@@ -8,13 +9,16 @@ def main() -> None:
     :return: Данная функция ничего не возвращает
     """
 
-    target, degree = map(int, input("Введите два числа разделенные пробелом: ").split(" "))
+    while expr := input("Введите выражение: "):
+        try:
+            result = calculate(expr=expr)
+            print(result)
 
-    result = power_function(target=target, power=degree)
+        except ExpresionException as e:
+            print("Ошибка ввода:", str(e))
+        except CalculationException as e:
+            print("Ошибка выполнения:", str(e))
 
-    print(result)
-
-    print(SAMPLE_CONSTANT)
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,7 @@
 [project]
-name = "labs"
+name = "lab_calc"
 version = "0.1.0"
-description = "Add your description here"
+description = "lab1"
 requires-python = ">=3.12"
 dependencies = [
     "pytest>=8.4.2",
