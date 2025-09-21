@@ -6,9 +6,9 @@ OPERATOR_PRIORITY: dict[str, int] = {
     '/': 2,
     '//': 2,
     '%': 2,
-    '**': 3,
-    'u+': 4,
-    'u-': 4,
+    'u+': 3,
+    'u-': 3,
+    '**': 4,
 }
 RIGHT_TO_LEFT_OPERATORS: dict[str, bool] = {
     '**': True,
