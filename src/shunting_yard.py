@@ -1,3 +1,6 @@
+from src.tokenize import Token
+
+
 # TODO: implement
 # TODO: add function comment
 def operatorPriority(op: str) -> int:
@@ -11,7 +14,7 @@ def isRightToLeft(op: str) -> bool:
 
 
 # TODO: implement
-def shunting_yard(tokenized_expr: list[str | int | float]) -> list[str | int | float]:
+def shunting_yard(tokenized_expr: list[Token]) -> list[Token]:
     """
     Имплементация шунтирующего дворa со скобками
     :param tokenized_expr: Список токенов в инфиксной нотации
