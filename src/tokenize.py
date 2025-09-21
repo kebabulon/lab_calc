@@ -73,7 +73,7 @@ def string_to_tokens(expr: str) -> list[str | int | float]:
             index += 1
 
         else:
-            raise ExpresionException(f"Неизвестный символ ({expr[index]})")
+            raise ExpresionException(f"Неизвестный символ ('{expr[index]}')")
 
     return tokenized_expr
 
@@ -90,7 +90,7 @@ def tokens_preprocessing(tokens: list[str | int | float]) -> list[str | int | fl
     for i in range(len(tokens)):
         # operator exceptions
         if is_operator(last_token) and is_operator(tokens[i]):
-            raise ExpresionException(f"Два оператора идущих подрят ({last_token} {tokens[i]})")
+            raise ExpresionException(f"Два оператора идущих подрят ('{last_token}' '{tokens[i]}')")
 
         if last_token == ')' and tokens[i] == '(':
             raise ExpresionException("Нету оператора между скобок")
@@ -99,10 +99,10 @@ def tokens_preprocessing(tokens: list[str | int | float]) -> list[str | int | fl
                 last_token == ')' and is_number(tokens[i]) or
                 is_number(last_token) and tokens[i] == '('
         ):
-            raise ExpresionException(f"Нету оператора между скобкой и числом ({last_token} {tokens[i]})")
+            raise ExpresionException(f"Нету оператора между скобкой и числом ('{last_token}' '{tokens[i]}')")
 
         if is_number(last_token) and is_number(tokens[i]):
-            raise ExpresionException(f"Нету оператора между числами ({last_token} {tokens[i]})")
+            raise ExpresionException(f"Нету оператора между числами ('{last_token}' '{tokens[i]}')")
 
         # covert +|- to unary +|-
         if last_token in ['', '('] and tokens[i] in ['+', '-']:
@@ -111,10 +111,10 @@ def tokens_preprocessing(tokens: list[str | int | float]) -> list[str | int | fl
         last_token = tokens[i]
 
     if is_operator(tokens[0]) and tokens[0] not in ['u+', 'u-']:
-        raise ExpresionException(f"Оператор не может быть первым токеном ({tokens[0]})")
+        raise ExpresionException(f"Оператор не может быть первым токеном ('{tokens[0]}')")
 
     if is_operator(tokens[-1]):
-        raise ExpresionException(f"Оператор не может быть последним токеном ({tokens[-1]})")
+        raise ExpresionException(f"Оператор не может быть последним токеном ('{tokens[-1]}')")
 
     return tokens
 
