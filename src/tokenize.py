@@ -85,15 +85,35 @@ def tokens_preprocessing(tokens: list[str | int | float]) -> list[str | int | fl
     """
 
     last_token: str | int | float = ''
-    for i in range(len(tokens)):
-        if is_operator(last_token) and is_operator(tokens[i]):
-            raise ExpresionException("Два оператора идущих подрят")
 
-        # unary
+    for i in range(len(tokens)):
+        # operator exceptions
+        if is_operator(last_token) and is_operator(tokens[i]):
+            raise ExpresionException(f"Два оператора идущих подрят ({last_token} {tokens[i]})")
+
+        if last_token == ')' and tokens[i] == '(':
+            raise ExpresionException("Нету оператора между скобок")
+
+        if (
+                last_token == ')' and is_number(tokens[i]) or
+                is_number(last_token) and tokens[i] == '('
+        ):
+            raise ExpresionException(f"Нету оператора между скобкой и числом ({last_token} {tokens[i]})")
+
+        if is_number(last_token) and is_number(tokens[i]):
+            raise ExpresionException(f"Нету оператора между числами ({last_token} {tokens[i]})")
+
+        # covert +|- to unary +|-
         if last_token in ['', '('] and tokens[i] in ['+', '-']:
             tokens[i] = f'u{tokens[i]}'
 
         last_token = tokens[i]
+
+    if is_operator(tokens[0]) and tokens[0] not in ['u+', 'u-']:
+        raise ExpresionException(f"Оператор не может быть первым токеном ({tokens[0]})")
+
+    if is_operator(tokens[-1]):
+        raise ExpresionException(f"Оператор не может быть последним токеном ({tokens[-1]})")
 
     return tokens
 
