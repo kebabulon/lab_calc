@@ -1,6 +1,19 @@
 from src.calculation_exceptions import ExpresionException
 from src.token import Token, TokenName
-from src.token import STR_TO_TOKEN_NAME
+
+
+STR_TO_TOKEN_NAME: dict[str, TokenName] = {
+    '+': TokenName.ADD,
+    '-': TokenName.SUBTRACT,
+    '*': TokenName.MULTIPLY,
+    '/': TokenName.DIVIDE,
+    '//': TokenName.DIVIDE_AND_FLOOR,
+    '%': TokenName.MOD,
+    '**': TokenName.POW,
+
+    '(': TokenName.LEFT_BRACKET,
+    ')': TokenName.RIGHT_BRACKET,
+}
 
 
 def string_to_tokens(expr: str) -> list[Token]:

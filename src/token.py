@@ -113,19 +113,6 @@ TOKEN_DATA: dict[TokenName, TokenData] = {
     ),
 }
 
-STR_TO_TOKEN_NAME: dict[str, TokenName] = {
-    '+': TokenName.ADD,
-    '-': TokenName.SUBTRACT,
-    '*': TokenName.MULTIPLY,
-    '/': TokenName.DIVIDE,
-    '//': TokenName.DIVIDE_AND_FLOOR,
-    '%': TokenName.MOD,
-    '**': TokenName.POW,
-
-    '(': TokenName.LEFT_BRACKET,
-    ')': TokenName.RIGHT_BRACKET,
-}
-
 
 class Token():
     def __init__(self, name: TokenName, value: int | float | None = None):
