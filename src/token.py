@@ -73,14 +73,14 @@ TOKEN_DATA: dict[TokenName, TokenData] = {
         priority=2,
     ),
     TokenName.UNARY_PLUS: TokenData(
-        string='+',
+        string='u+',
         operator=True,
         args=1,
         priority=3,
         right_to_left=True
     ),
     TokenName.UNARY_MINUS: TokenData(
-        string='-',
+        string='u-',
         operator=True,
         args=1,
         priority=3,
