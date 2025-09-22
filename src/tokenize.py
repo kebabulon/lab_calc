@@ -84,6 +84,13 @@ def tokens_preprocessing(tokens: list[Token]) -> list[Token]:
     last_token: Token = Token(name=TokenName.EMPTY)
 
     for i in range(len(tokens)):
+        # covert +|- to unary +|-
+        if last_token.name in [TokenName.EMPTY, TokenName.LEFT_BRACKET]:
+            if tokens[i].equals(TokenName.ADD):
+                tokens[i] = Token(name=TokenName.UNARY_PLUS)
+            if tokens[i].equals(TokenName.SUBTRACT):
+                tokens[i] = Token(name=TokenName.UNARY_MINUS)
+
         # operator exceptions
         if last_token.is_operator() and tokens[i].is_operator():
             raise ExpresionException(f"Два оператора идущих подрят ('{last_token}' '{tokens[i]}')")
@@ -100,12 +107,16 @@ def tokens_preprocessing(tokens: list[Token]) -> list[Token]:
         if last_token.is_number() and tokens[i].is_number():
             raise ExpresionException(f"Нету оператора между числами ('{last_token}' '{tokens[i]}')")
 
-        # covert +|- to unary +|-
-        if last_token.name in [TokenName.EMPTY, TokenName.LEFT_BRACKET]:
-            if tokens[i].equals(TokenName.ADD):
-                tokens[i] = Token(name=TokenName.UNARY_PLUS)
-            if tokens[i].equals(TokenName.SUBTRACT):
-                tokens[i] = Token(name=TokenName.UNARY_MINUS)
+        if (
+                last_token.equals(TokenName.LEFT_BRACKET) and tokens[i].is_operator()
+                and tokens[i].name not in [TokenName.UNARY_MINUS, TokenName.UNARY_PLUS]
+
+                or last_token.is_operator() and tokens[i].equals(TokenName.RIGHT_BRACKET)
+        ):
+            raise ExpresionException(f"Нету числа между скобкой и оператором ('{last_token}' '{tokens[i]}')")
+
+        if last_token.equals(TokenName.LEFT_BRACKET) and tokens[i].equals(TokenName.RIGHT_BRACKET):
+            raise ExpresionException("Пустая скобка")
 
         last_token = tokens[i]
 
