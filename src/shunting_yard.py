@@ -21,9 +21,9 @@ def shunting_yard(tokenized_expr: list[Token]) -> list[Token]:
             token_priority = token.get_priority()
             token_right_to_left = token.is_right_to_left()
             while (
-                operator_stack and
-                operator_stack[-1].is_operator() and
-                (
+                operator_stack
+                and operator_stack[-1].is_operator()
+                and (
                     token_right_to_left and operator_stack[-1].get_priority() > token_priority
                     or not token_right_to_left and operator_stack[-1].get_priority() >= token_priority
                 )
