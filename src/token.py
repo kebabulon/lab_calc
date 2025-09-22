@@ -146,6 +146,13 @@ class Token():
         """
         return self.data.priority
 
+    def get_arg_count(self) -> int:
+        """
+        Количество аргументов у токена (оператора)
+        :return: Возвращает количество аргументов
+        """
+        return self.data.args
+
     def is_right_to_left(self) -> bool:
         """
         Проверяет если токен является право-ассициативным
