@@ -121,8 +121,12 @@ class Token():
 
         self.data: TokenData = TOKEN_DATA[name]
 
-    # TODO: implement docstring
     def equals(self, token_name: TokenName) -> bool:
+        """
+        Проверяет если токен является `token_name`
+        :param token_name: имя токена
+        :return: Возвращает bool
+        """
         return self.name == token_name
 
     def is_number(self) -> bool:
