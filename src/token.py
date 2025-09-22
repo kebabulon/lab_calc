@@ -20,35 +20,98 @@ class TokenName(Enum):
     EMPTY = auto()
 
 
-OPERATORS: list[TokenName] = [
-    TokenName.ADD,
-    TokenName.SUBTRACT,
-    TokenName.MULTIPLY,
-    TokenName.DIVIDE,
-    TokenName.DIVIDE_AND_FLOOR,
-    TokenName.MOD,
-    TokenName.POW,
-    TokenName.UNARY_PLUS,
-    TokenName.UNARY_MINUS,
-]
+class TokenData():
+    def __init__(self,
+                 string: str,
+                 operator: bool,
+                 args: int = -1,
+                 priority: int = -1,
+                 right_to_left: bool = False,
+                 ):
+        self.string = string
+        self.operator = operator
+        self.args = args
+        self.priority = priority
+        self.right_to_left = right_to_left
 
-OPERATOR_PRIORITY: dict[TokenName, int] = {
-    TokenName.ADD: 1,
-    TokenName.SUBTRACT: 1,
-    TokenName.MULTIPLY: 2,
-    TokenName.DIVIDE: 2,
-    TokenName.DIVIDE_AND_FLOOR: 2,
-    TokenName.MOD: 2,
-    TokenName.UNARY_MINUS: 3,
-    TokenName.UNARY_PLUS: 3,
-    TokenName.POW: 4,
+
+TOKEN_DATA: dict[TokenName, TokenData] = {
+    TokenName.ADD: TokenData(
+        string='+',
+        operator=True,
+        args=2,
+        priority=1,
+    ),
+    TokenName.SUBTRACT: TokenData(
+        string='-',
+        operator=True,
+        args=2,
+        priority=1,
+    ),
+    TokenName.MULTIPLY: TokenData(
+        string='*',
+        operator=True,
+        args=2,
+        priority=2,
+    ),
+    TokenName.DIVIDE: TokenData(
+        string='/',
+        operator=True,
+        args=2,
+        priority=2,
+    ),
+    TokenName.DIVIDE_AND_FLOOR: TokenData(
+        string='//',
+        operator=True,
+        args=2,
+        priority=2,
+    ),
+    TokenName.MOD: TokenData(
+        string='%',
+        operator=True,
+        args=2,
+        priority=2,
+    ),
+    TokenName.UNARY_PLUS: TokenData(
+        string='+',
+        operator=True,
+        args=1,
+        priority=3,
+        right_to_left=True
+    ),
+    TokenName.UNARY_MINUS: TokenData(
+        string='-',
+        operator=True,
+        args=1,
+        priority=3,
+        right_to_left=True
+    ),
+    TokenName.POW: TokenData(
+        string='**',
+        operator=True,
+        args=2,
+        priority=4,
+        right_to_left=True
+    ),
+
+    TokenName.LEFT_BRACKET: TokenData(
+        string='(',
+        operator=False,
+    ),
+    TokenName.RIGHT_BRACKET: TokenData(
+        string=')',
+        operator=False,
+    ),
+    TokenName.NUMBER: TokenData(
+        string='N',
+        operator=False,
+    ),
+
+    TokenName.EMPTY: TokenData(
+        string='',
+        operator=False,
+    ),
 }
-
-RIGHT_TO_LEFT_OPERATORS: list[TokenName] = [
-    TokenName.POW,
-    TokenName.UNARY_PLUS,
-    TokenName.UNARY_MINUS,
-]
 
 STR_TO_TOKEN_NAME: dict[str, TokenName] = {
     '+': TokenName.ADD,
@@ -63,28 +126,13 @@ STR_TO_TOKEN_NAME: dict[str, TokenName] = {
     ')': TokenName.RIGHT_BRACKET,
 }
 
-TOKEN_NAME_TO_STR: dict[TokenName, str] = {
-    TokenName.ADD: '+',
-    TokenName.SUBTRACT: '-',
-    TokenName.MULTIPLY: '*',
-    TokenName.DIVIDE: '/',
-    TokenName.DIVIDE_AND_FLOOR: '//',
-    TokenName.MOD: '%',
-    TokenName.POW: '**',
-    TokenName.UNARY_PLUS: '+',
-    TokenName.UNARY_MINUS: '-',
-
-    TokenName.LEFT_BRACKET: '(',
-    TokenName.RIGHT_BRACKET: ')',
-
-    TokenName.EMPTY: '',
-}
-
 
 class Token():
     def __init__(self, name: TokenName, value: int | float | None = None):
         self.name = name
         self.value = value
+
+        self.data: TokenData = TOKEN_DATA[name]
 
     # TODO: implement docstring
     def equals(self, token_name: TokenName) -> bool:
@@ -95,34 +143,34 @@ class Token():
         Проверяет если токен является числом
         :return: Возвращает bool
         """
-        return self.name == TokenName.NUMBER
+        return self.equals(TokenName.NUMBER)
 
     def is_operator(self) -> bool:
         """
         Проверяет если токен является оператором
         :return: Возвращает bool
         """
-        return self.name in OPERATORS
+        return self.data.operator
 
     def get_priority(self) -> int:
         """
         Приоритет токена (оператора)
         :return: Возвращает приоритет
         """
-        return OPERATOR_PRIORITY.get(self.name, -1)
+        return self.data.priority
 
     def is_right_to_left(self) -> bool:
         """
         Проверяет если токен является право-ассициативным
         :return: Возвращает bool
         """
-        return self.name in RIGHT_TO_LEFT_OPERATORS
+        return self.data.right_to_left
 
     def __str__(self):
-        if self.name == TokenName.NUMBER:
+        if self.is_number():
             return str(self.value)
         else:
-            return TOKEN_NAME_TO_STR[self.name]
+            return self.data.string
 
     def __repr__(self):
         return f"<{self.__str__()}>"

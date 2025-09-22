@@ -90,9 +90,9 @@ def tokens_preprocessing(tokens: list[Token]) -> list[Token]:
         # covert +|- to unary +|-
         if last_token.name in [TokenName.EMPTY, TokenName.LEFT_BRACKET]:
             if tokens[i].equals(TokenName.ADD):
-                tokens[i].name = TokenName.UNARY_PLUS
+                tokens[i] = Token(name=TokenName.UNARY_PLUS)
             if tokens[i].equals(TokenName.SUBTRACT):
-                tokens[i].name = TokenName.UNARY_MINUS
+                tokens[i] = Token(name=TokenName.UNARY_MINUS)
 
         last_token = tokens[i]
 
