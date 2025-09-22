@@ -2,7 +2,6 @@ from src.calculation_exceptions import ExpresionException
 from src.token import Token, TokenName
 
 
-# TODO: implement
 def shunting_yard(tokenized_expr: list[Token]) -> list[Token]:
     """
     Имплементация шунтирующего дворa со скобками
