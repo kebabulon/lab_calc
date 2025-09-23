@@ -1,5 +1,6 @@
 from src.calculation_exceptions import ExpresionException
 from src.token import Token, TokenName
+from src.constants import DEBUG_PRINT
 
 
 STR_TO_TOKEN_NAME: dict[str, TokenName] = {
@@ -139,6 +140,7 @@ def tokenize(expr: str) -> list[Token]:
     raw_tokenized_expr = string_to_tokens(expr=expr)
     tokenized_expr = tokens_preprocessing(tokens=raw_tokenized_expr)
 
-    print(tokenized_expr)
+    if DEBUG_PRINT:
+        print(tokenized_expr)
 
     return tokenized_expr

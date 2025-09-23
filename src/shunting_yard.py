@@ -1,5 +1,6 @@
 from src.calculation_exceptions import ExpresionException
 from src.token import Token, TokenName
+from src.constants import DEBUG_PRINT
 
 
 def shunting_yard(tokenized_expr: list[Token]) -> list[Token]:
@@ -48,6 +49,7 @@ def shunting_yard(tokenized_expr: list[Token]) -> list[Token]:
             raise ExpresionException("Существует скобка без пары")
         result.append(popped_operator)
 
-    print(result)
+    if DEBUG_PRINT:
+        print(result)
 
     return result
