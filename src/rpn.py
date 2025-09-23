@@ -3,7 +3,7 @@ from src.calculation_exceptions import CalculationException
 from src.token import Token, TokenName
 
 
-def solve_rpn(rpn_expr: list[Token]) -> float:
+def solve_rpn(rpn_expr: list[Token]) -> int | float:
     """
     Вычисляет математическое выражение в обратной польской нотации (RPN)
     :param rpn_expr: Список токенов в обратной польской нотации
