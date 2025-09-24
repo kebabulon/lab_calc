@@ -139,6 +139,9 @@ def tokenize(expr: str) -> list[Token]:
     :return: Возвращает список токенов
     """
 
+    if expr == "":
+        raise ExpresionException("Пустое выражение")
+
     raw_tokenized_expr = string_to_tokens(expr=expr)
     tokenized_expr = tokens_preprocessing(tokens=raw_tokenized_expr)
 
