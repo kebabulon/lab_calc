@@ -13,6 +13,9 @@ def main() -> None:
     readline.set_auto_history(True)
 
     while expr := input("Введите выражение: "):
+        if expr == "exit":
+            exit()
+
         try:
             result = calculate(expr=expr)
             print(result)
