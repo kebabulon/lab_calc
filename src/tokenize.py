@@ -44,6 +44,8 @@ def string_to_tokens(expr: str) -> list[Token]:
                 raise ExpresionException("'.' не является числом")
             if number_str[:2] == '00':
                 raise ExpresionException(f"Присуствуют ведущие нули ({number_str})")
+            if len(number_str) >= 2 and number_str[0] == '0' and number_str[1].isdigit():
+                raise ExpresionException(f"Присуствует ведущий ноль ({number_str})")
 
             floating_point = False
 
