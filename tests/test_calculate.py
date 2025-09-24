@@ -1,5 +1,7 @@
 import pytest
+
 from src.calculation_exceptions import ExpresionException
+from src.calculation_exceptions import CalculationException
 
 from src.calculate import calculate
 
@@ -73,3 +75,34 @@ def test_expresion_syntax():
         calculate("(-1)+((1+(2*3))+(-1)")
     with pytest.raises(ExpresionException):
         calculate("(-1)+(1+(2*3)))+(-1)")
+
+
+def test_calculation():
+    """
+    Проверяет выполнение выражения
+    :return: Данная функция ничего не возвращает
+    """
+
+    assert calculate("1") == 1
+    assert calculate("1+1") == 2
+    assert calculate("1+0.5") == 1.5
+    assert calculate("-(9+2-1)*(8/(40//10))*(1%10)*((+2)**2)*1.5") == -120.0
+
+    with pytest.raises(CalculationException):
+        calculate("1/0")
+    with pytest.raises(CalculationException):
+        calculate("1//0")
+
+    with pytest.raises(CalculationException):
+        calculate("1.5//1")
+    with pytest.raises(CalculationException):
+        calculate("1//1.5")
+    with pytest.raises(CalculationException):
+        calculate("1.5//1.5")
+
+    with pytest.raises(CalculationException):
+        calculate("10.1%10")
+    with pytest.raises(CalculationException):
+        calculate("20%10.5")
+    with pytest.raises(CalculationException):
+        calculate("1.5%10.5")
