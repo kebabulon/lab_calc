@@ -55,8 +55,6 @@ def test_expresion_syntax():
         calculate("*1")
     with pytest.raises(ExpresionException):
         calculate("++")
-    with pytest.raises(ExpresionException):
-        calculate("++")
 
     with pytest.raises(ExpresionException):
         calculate("1)")
@@ -75,6 +73,9 @@ def test_expresion_syntax():
         calculate("(-1)+((1+(2*3))+(-1)")
     with pytest.raises(ExpresionException):
         calculate("(-1)+(1+(2*3)))+(-1)")
+
+    with pytest.raises(ExpresionException):
+        calculate("(1)(1)")
 
 
 def test_calculation():
