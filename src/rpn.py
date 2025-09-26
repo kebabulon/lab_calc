@@ -65,6 +65,10 @@ def solve_rpn(rpn_expr: list[Token]) -> int | float:
                         result = n1 % n2
 
                     case TokenName.POW:
+                        if n1 == 0 and n2 < 0:
+                            raise CalculationException(f"Нельзя возводить ноль в отрицательную степень ({n1} ** {n2})")
+                        if n1 < 0 and (type(n2) is not int):
+                            raise CalculationException(f"Нельзя брать корень от нецелого числa ({n1} ** {n2})")
                         result = n1 ** n2
 
                     case _:
