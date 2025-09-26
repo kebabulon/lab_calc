@@ -9,7 +9,6 @@ from src.calculate import calculate
 def test_number_tokenization():
     """
     Проверяет токенизирования числа
-    :return: Данная функция ничего не возвращает
     """
     calculate("0")
     calculate("1234567890")
@@ -29,8 +28,7 @@ def test_number_tokenization():
 
 def test_expresion_syntax():
     """
-    Проверяет синтаксес вырожения
-    :return: Данная функция ничего не возвращает
+    Проверяет синтаксес выражения
     """
 
     with pytest.raises(ExpresionException):
@@ -81,7 +79,6 @@ def test_expresion_syntax():
 def test_calculation():
     """
     Проверяет выполнение выражения
-    :return: Данная функция ничего не возвращает
     """
 
     assert calculate("1") == 1
@@ -107,3 +104,8 @@ def test_calculation():
         calculate("20%10.5")
     with pytest.raises(CalculationException):
         calculate("1.5%10.5")
+
+    with pytest.raises(CalculationException):
+        calculate("0**(-1)")
+    with pytest.raises(CalculationException):
+        calculate("(-1)**0.5")
