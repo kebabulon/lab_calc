@@ -24,7 +24,6 @@ def string_to_tokens(expr: str) -> list[Token]:
     :return: Возвращает необработаный список токенов
     """
 
-    expr = expr.replace(' ', '')
     expr = expr.replace(',', '.')
     expr += " "  # 1 char buffer for checking ahead
 
@@ -32,8 +31,12 @@ def string_to_tokens(expr: str) -> list[Token]:
     index = 0
 
     while index < len(expr) - 1:
+        # space
+        if expr[index].isspace():
+            index += 1
+
         # numbers
-        if expr[index].isdigit() or expr[index] == '.':
+        elif expr[index].isdigit() or expr[index] == '.':
             number_str = expr[index]
 
             while expr[index + 1].isdigit() or expr[index + 1] == '.':
