@@ -76,6 +76,8 @@ def test_expresion_syntax():
 
     with pytest.raises(ExpresionException):
         calculate("(1)(1)")
+    with pytest.raises(ExpresionException):
+        calculate("1 1")
 
 
 def test_calculation():
