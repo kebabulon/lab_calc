@@ -37,6 +37,8 @@ def test_expresion_syntax():
     with pytest.raises(ExpresionException):
         calculate("")
     with pytest.raises(ExpresionException):
+        calculate(" ")
+    with pytest.raises(ExpresionException):
         calculate("(")
     with pytest.raises(ExpresionException):
         calculate(")")

@@ -77,6 +77,9 @@ def string_to_tokens(expr: str) -> list[Token]:
         else:
             raise ExpresionException(f"Неизвестный символ ('{expr[index]}')")
 
+    if len(tokenized_expr) == 0:
+        raise ExpresionException("Пустое выражение")
+
     return tokenized_expr
 
 
@@ -141,9 +144,6 @@ def tokenize(expr: str) -> list[Token]:
     :param expr: Выражение
     :return: Возвращает список токенов
     """
-
-    if expr == "":
-        raise ExpresionException("Пустое выражение")
 
     raw_tokenized_expr = string_to_tokens(expr=expr)
     tokenized_expr = tokens_preprocessing(tokens=raw_tokenized_expr)
