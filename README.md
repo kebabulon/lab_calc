@@ -3,10 +3,11 @@
 ## Запуск программы
 ```bash
 $ uv venv
+$ uv sync
 $ source .venv/bin/activate
 (для винды: PS> .venv\Scripts\activate)
 
-$ python -m src.main
+(lab_calc) $ python -m src.main
 ```
 
 ## Формат ввода
