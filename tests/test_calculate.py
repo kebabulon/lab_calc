@@ -10,11 +10,11 @@ def test_number_tokenization():
     """
     Проверяет токенизирования числа
     """
-    calculate("0")
-    calculate("1234567890")
-    calculate("1234.56789")
-    calculate("1,5")
-    calculate(".1")
+    assert calculate("0") == 0
+    assert calculate("1234567890") == 1234567890
+    assert calculate("1234.56789") == 1234.56789
+    assert calculate("1,5") == 1.5
+    assert calculate(".1") == 0.1
 
     with pytest.raises(ExpresionException):
         calculate("01")
@@ -94,6 +94,8 @@ def test_calculation():
         calculate("1/0")
     with pytest.raises(CalculationException):
         calculate("1//0")
+    with pytest.raises(CalculationException):
+        calculate("1%0")
 
     with pytest.raises(CalculationException):
         calculate("1.5//1")
